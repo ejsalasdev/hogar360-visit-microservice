@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "property-microservice")
+@FeignClient(name = "property-microservice", url = "${property-microservice.url}")
 public interface PropertyHandlerClient {
     
     @GetMapping("/api/v1/house/read/{houseId}")

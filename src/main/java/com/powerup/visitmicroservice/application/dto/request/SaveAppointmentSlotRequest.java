@@ -6,7 +6,6 @@ public record SaveAppointmentSlotRequest(
 
         LocalDateTime startTime,
         LocalDateTime endTime,
-        Long sellerId,
         Long houseId
 ) {
 }

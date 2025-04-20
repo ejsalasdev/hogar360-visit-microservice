@@ -2,6 +2,7 @@ package com.powerup.visitmicroservice.commons.configuration.beans;
 
 import com.powerup.visitmicroservice.domain.ports.in.AppointmentSlotServicePort;
 import com.powerup.visitmicroservice.domain.ports.out.AppointmentSlotPersistencePort;
+import com.powerup.visitmicroservice.domain.ports.out.AuthenticatedUserPort;
 import com.powerup.visitmicroservice.domain.usecases.AppointmentSlotUseCase;
 import com.powerup.visitmicroservice.infrastructure.adapters.persistence.AppointmentSlotPersistenceAdapter;
 import com.powerup.visitmicroservice.infrastructure.mappers.AppointmentSlotEntityMapper;
@@ -24,8 +25,9 @@ public class AppointmentSlotBeanConfiguration {
     
     @Bean
     public AppointmentSlotServicePort appointmentSlotServicePort(
-            AppointmentSlotPersistencePort appointmentSlotPersistencePort
+            AppointmentSlotPersistencePort appointmentSlotPersistencePort,
+            AuthenticatedUserPort authenticatedUserPort
     ){
-        return new AppointmentSlotUseCase(appointmentSlotPersistencePort);
+        return new AppointmentSlotUseCase(appointmentSlotPersistencePort, authenticatedUserPort);
     }
 }
