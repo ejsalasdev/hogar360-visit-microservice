@@ -19,6 +19,9 @@ jwt:
   secret: ${JWT_SECRET}
   user: AUTH0JWT_BACKEND
   expiration: 86400000
+  
+property-microservice:
+  url: http://localhost:8081
 
 #logging:
 #  level:
