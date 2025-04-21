@@ -8,6 +8,10 @@ import com.powerup.visitmicroservice.infrastructure.repositories.mysql.Appointme
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class AppointmentSlotPersistenceAdapter implements AppointmentSlotPersistencePort {
@@ -19,5 +23,18 @@ public class AppointmentSlotPersistenceAdapter implements AppointmentSlotPersist
     public void save(AppointmentSlotModel appointmentSlotModel) {
         AppointmentSlotEntity appointmentSlotEntity = appointmentSlotEntityMapper.modelToEntity(appointmentSlotModel);
         appointmentSlotRepository.save(appointmentSlotEntity);
+    }
+    
+    @Override
+    public List<AppointmentSlotModel> getAllByHouseId(Long houseId) {
+        List<AppointmentSlotEntity> appointmentSlotEntities = appointmentSlotRepository.findAllByHouseId(houseId);
+        return appointmentSlotEntities.stream()
+                .map(appointmentSlotEntityMapper::entityToModel)
+                .toList();
+    }
+
+    @Override
+    public Optional<AppointmentSlotModel> getAllBySellerIdAndStarTime(Long sellerId, LocalDateTime startTime) {
+        return appointmentSlotRepository.findAllBySellerIdAndStartTime(sellerId, startTime).map(appointmentSlotEntityMapper::entityToModel);
     }
 }

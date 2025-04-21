@@ -6,6 +6,7 @@ import com.powerup.visitmicroservice.application.dto.request.SaveAppointmentSlot
 import com.powerup.visitmicroservice.application.dto.response.SaveAppointmentSlotResponse;
 import com.powerup.visitmicroservice.application.handler.AppointmentSlotHandler;
 import com.powerup.visitmicroservice.application.mappers.AppointmentSlotRequestMapper;
+import com.powerup.visitmicroservice.domain.exceptions.InvalidUserAccesException;
 import com.powerup.visitmicroservice.domain.model.AppointmentSlotModel;
 import com.powerup.visitmicroservice.domain.ports.in.AppointmentSlotServicePort;
 import com.powerup.visitmicroservice.domain.ports.out.AuthenticatedUserPort;
@@ -34,6 +35,6 @@ public class AppointmentSlotHandlerImpl implements AppointmentSlotHandler {
             appointmentSlotServicePort.save(appointmentSlotModel);
             return new SaveAppointmentSlotResponse("AppointmentSlot created successfully", LocalDateTime.now());
         }
-        throw new RuntimeException("La casa solicitada no corresponde con el vendedor actual");
+        throw new InvalidUserAccesException("La casa solicitada no corresponde con el vendedor actual");
     }
 }
