@@ -17,4 +17,13 @@ public class AuthenticatedUserAdapter implements AuthenticatedUserPort {
         }
         throw new RuntimeException("No se pudo obtener el ID del usuario autenticado.");
     }
+
+    @Override
+    public String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof DecodedJwtHolder decodedJwtHolder) {
+            return decodedJwtHolder.getUsername();
+        }
+        throw new RuntimeException("No se pudo obtener el username del usuario autenticado.");
+    }
 }

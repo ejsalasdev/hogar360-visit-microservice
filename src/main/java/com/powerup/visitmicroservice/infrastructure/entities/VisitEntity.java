@@ -18,7 +18,7 @@ public class VisitEntity {
     
     @ManyToOne
     @JoinColumn(name = "appointment_slot_id", nullable = false)
-    private AppointmentSlotEntity appointmentSlot;
+    private AppointmentSlotEntity appointmentSlotId;
     
     @Column(nullable = false)
     private String customerEmail;

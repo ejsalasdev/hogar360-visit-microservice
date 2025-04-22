@@ -1,6 +1,7 @@
 package com.powerup.visitmicroservice.commons.configuration.beans;
 
 import com.powerup.visitmicroservice.domain.ports.in.VisitServicePort;
+import com.powerup.visitmicroservice.domain.ports.out.AuthenticatedUserPort;
 import com.powerup.visitmicroservice.domain.ports.out.VisitPersistencePort;
 import com.powerup.visitmicroservice.domain.usecases.VisitUseCase;
 import com.powerup.visitmicroservice.infrastructure.adapters.persistence.VisitPersistenceAdapter;
@@ -24,8 +25,9 @@ public class VisitBeanConfiguration {
     
     @Bean
     public VisitServicePort visitServicePort(
-            VisitPersistencePort visitPersistencePort
+            VisitPersistencePort visitPersistencePort,
+            AuthenticatedUserPort authenticatedUserPort
     ) {
-        return new VisitUseCase(visitPersistencePort);
+        return new VisitUseCase(visitPersistencePort, authenticatedUserPort);
     }
 }

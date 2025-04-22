@@ -3,15 +3,15 @@ package com.powerup.visitmicroservice.domain.model;
 public class VisitModel {
     
     private Long id;
-    private AppointmentSlotModel appointmentSlot;
+    private AppointmentSlotModel appointmentSlotId;
     private String customerEmail;
 
     public VisitModel() {
     }
 
-    public VisitModel(Long id, AppointmentSlotModel appointmentSlot, String customerEmail) {
+    public VisitModel(Long id, AppointmentSlotModel appointmentSlotId, String customerEmail) {
         this.id = id;
-        this.appointmentSlot = appointmentSlot;
+        this.appointmentSlotId = appointmentSlotId;
         this.customerEmail = customerEmail;
     }
 
@@ -23,12 +23,12 @@ public class VisitModel {
         this.id = id;
     }
 
-    public AppointmentSlotModel getAppointmentSlot() {
-        return appointmentSlot;
+    public AppointmentSlotModel getAppointmentSlotId() {
+        return appointmentSlotId;
     }
 
-    public void setAppointmentSlot(AppointmentSlotModel appointmentSlot) {
-        this.appointmentSlot = appointmentSlot;
+    public void setAppointmentSlotId(AppointmentSlotModel appointmentSlotId) {
+        this.appointmentSlotId = appointmentSlotId;
     }
 
     public String getCustomerEmail() {

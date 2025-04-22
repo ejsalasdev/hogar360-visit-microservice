@@ -8,6 +8,8 @@ import com.powerup.visitmicroservice.infrastructure.repositories.mysql.VisitRepo
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class VisitPersistenceAdapter implements VisitPersistencePort {
@@ -19,5 +21,16 @@ public class VisitPersistenceAdapter implements VisitPersistencePort {
     public void save(VisitModel visitModel) {
         VisitEntity visitEntity = visitEntityMapper.modelToEntity(visitModel);
         visitRepository.save(visitEntity);
+    }
+
+    @Override
+    public int countByAppointmentSlotId(Long appointmentSlotId) {
+        return visitRepository.countByAppointmentSlotId_Id(appointmentSlotId);
+    }
+
+    @Override
+    public Optional<VisitModel> findByAppointmentSlotIdAndCustomerEmail(Long appointmentSlotId, String customerEmail) {
+        return visitRepository.findByAppointmentSlotIdAndCustomerEmailJPQL(appointmentSlotId, customerEmail)
+                .map(visitEntityMapper::entityToModel);
     }
 }
