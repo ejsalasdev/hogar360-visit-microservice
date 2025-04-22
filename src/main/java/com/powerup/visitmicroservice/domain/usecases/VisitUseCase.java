@@ -6,6 +6,8 @@ import com.powerup.visitmicroservice.domain.model.VisitModel;
 import com.powerup.visitmicroservice.domain.ports.in.VisitServicePort;
 import com.powerup.visitmicroservice.domain.ports.out.AuthenticatedUserPort;
 import com.powerup.visitmicroservice.domain.ports.out.VisitPersistencePort;
+import com.powerup.visitmicroservice.domain.utils.constants.DomainConstants;
+import com.powerup.visitmicroservice.domain.utils.constants.VisitExceptionMessagesConstants;
 
 import java.util.Optional;
 
@@ -28,13 +30,15 @@ public class VisitUseCase implements VisitServicePort {
         );
         
         if (existingVisitForBuyer.isPresent()) {
-            throw new DuplicateVisitException("Ya has agendado una visita para este horario.");
+            throw new DuplicateVisitException(VisitExceptionMessagesConstants.VISIT_ALREADY_EXIST_FOR_BUYER);
         }
         
         int existingVisitsCount = visitPersistencePort.countByAppointmentSlotId(visitModel.getAppointmentSlotId().getId());
         
-        if (existingVisitsCount >= 2) {
-            throw new MaximumBuyersReachedException("Ya se agendaron todos los cupos disponibles para este horario.");
+        if (existingVisitsCount >= DomainConstants.VISIT_LIMIT_FOR_APPOINTMENT_SLOT) {
+            throw new MaximumBuyersReachedException(
+                    VisitExceptionMessagesConstants.VISIT_LIMIT_REACHED_ERROR
+            );
         }
         
         visitPersistencePort.save(visitModel);

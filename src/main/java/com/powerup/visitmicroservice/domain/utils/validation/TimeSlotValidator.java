@@ -22,7 +22,9 @@ public class TimeSlotValidator {
             LocalDateTime now = LocalDateTime.now();
             LocalDateTime threeWeeksFromNow = now.plusWeeks(3);
             if (startTime.isBefore(now) || startTime.isAfter(threeWeeksFromNow)) {
-                throw new TimeSlotConflictException("La startTime debe estar dentro de las próximas 3 semanas a partir de ahora.");
+                throw new TimeSlotConflictException(
+                        AppointmentSlotExceptionMessagesConstants.TIME_SLOT_MUST_BE_FUTURE_DATE_FOR_BOOKING
+                );
             }
         }
     }

@@ -4,6 +4,7 @@ import com.powerup.visitmicroservice.application.dto.request.SaveVisitRequest;
 import com.powerup.visitmicroservice.application.dto.response.SaveVisitResponse;
 import com.powerup.visitmicroservice.application.handler.VisitHandler;
 import com.powerup.visitmicroservice.application.mappers.VisitRequestMapper;
+import com.powerup.visitmicroservice.application.utils.constants.ApplicationConstants;
 import com.powerup.visitmicroservice.domain.ports.in.VisitServicePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,6 @@ public class VisitHandlerImpl implements VisitHandler {
     @Override
     public SaveVisitResponse save(SaveVisitRequest request) {
         visitServicePort.save(visitRequestMapper.requestToModel(request));
-        return new SaveVisitResponse("Visit created successfully", LocalDateTime.now());
+        return new SaveVisitResponse(ApplicationConstants.SAVE_VISIT_RESPONSE, LocalDateTime.now());
     }
 }
