@@ -5,6 +5,7 @@ import com.powerup.visitmicroservice.domain.model.AppointmentSlotModel;
 import com.powerup.visitmicroservice.domain.ports.in.AppointmentSlotServicePort;
 import com.powerup.visitmicroservice.domain.ports.out.AppointmentSlotPersistencePort;
 import com.powerup.visitmicroservice.domain.ports.out.AuthenticatedUserPort;
+import com.powerup.visitmicroservice.domain.utils.constants.AppointmentSlotExceptionMessagesConstants;
 import com.powerup.visitmicroservice.domain.utils.validation.TimeSlotValidator;
 
 import java.util.List;
@@ -31,7 +32,9 @@ public class AppointmentSlotUseCase implements AppointmentSlotServicePort {
         );
 
         if (existingSameTimeSlot.isPresent()) {
-            throw new TimeSlotConflictException("Ya existe un horario de visita para esta fecha y hora.");
+            throw new TimeSlotConflictException(
+                    AppointmentSlotExceptionMessagesConstants.SAME_APPOINTMENT_SLOT_ERROR
+            );
         }
         
         List<AppointmentSlotModel> existingSlots = appointmentSlotPersistencePort.getAllByHouseId(appointmentSlotModel.getHouseId());

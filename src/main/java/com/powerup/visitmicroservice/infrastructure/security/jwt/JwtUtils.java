@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.powerup.visitmicroservice.infrastructure.utils.constants.InfrastructureConstants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,7 @@ public class JwtUtils {
             return verifier.verify(token);
 
         } catch (JWTVerificationException e) {
-            throw new JWTVerificationException("Invalid Token, not authorized");
+            throw new JWTVerificationException(InfrastructureConstants.INVALID_TOKEN_RESPONSE);
         }
     }
     

@@ -26,7 +26,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(http -> {
                     http.requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs*/**").permitAll();
-                    http.requestMatchers(HttpMethod.POST, "/api/v1/visit/create").hasAuthority("SELLER");
+                    http.requestMatchers(HttpMethod.POST, "/api/v1/appointmentslot/create").hasAuthority("SELLER");
+                    http.requestMatchers(HttpMethod.POST, "/api/v1/visit/create").hasAuthority("BUYER");
 
                     http.anyRequest().denyAll();
                 })

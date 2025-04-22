@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/visit")
+@RequestMapping("/api/v1/appointmentslot")
 @RequiredArgsConstructor
-@Tag(name = "Visit", description = "Operations related to visits")
+@Tag(name = "AppointmentSlot", description = "Operations related to AppointmentSlots")
 public class AppointmentSlotController {
     
     private final AppointmentSlotHandler appointmentSlotHandler;
