@@ -1,5 +1,6 @@
 package com.powerup.visitmicroservice.commons.configuration.beans;
 
+import com.powerup.visitmicroservice.application.client.handler.PropertyHandlerClient;
 import com.powerup.visitmicroservice.domain.ports.in.AppointmentSlotServicePort;
 import com.powerup.visitmicroservice.domain.ports.out.AppointmentSlotPersistencePort;
 import com.powerup.visitmicroservice.domain.ports.out.AuthenticatedUserPort;
@@ -18,10 +19,11 @@ public class AppointmentSlotBeanConfiguration {
 
     private final AppointmentSlotEntityMapper appointmentSlotEntityMapper;
     private final AppointmentSlotRepository appointmentSlotRepository;
+    private final PropertyHandlerClient propertyHandlerClient;
 
     @Bean
     public AppointmentSlotPersistencePort appointmentSlotPersistencePort() {
-        return new AppointmentSlotPersistenceAdapter(appointmentSlotEntityMapper, appointmentSlotRepository);
+        return new AppointmentSlotPersistenceAdapter(appointmentSlotEntityMapper, appointmentSlotRepository, propertyHandlerClient);
     }
 
     @Bean

@@ -90,19 +90,19 @@ class VisitUseCaseTest {
         when(authenticatedUserPort.getCurrentUsername()).thenReturn("third@example.com");
         when(visitPersistencePort.findByAppointmentSlotIdAndCustomerEmail(1L, "third@example.com"))
                 .thenReturn(Optional.empty());
-        when(visitPersistencePort.countByAppointmentSlotId(1L)).thenReturn(1); // One slot already taken by a different buyer
+        when(visitPersistencePort.countByAppointmentSlotId(1L)).thenReturn(1);
 
         VisitModel anotherVisit = new VisitModel();
         anotherVisit.setAppointmentSlotId(appointmentSlotModel);
         anotherVisit.setCustomerEmail("different@example.com");
         when(visitPersistencePort.findByAppointmentSlotIdAndCustomerEmail(1L, "different@example.com"))
-                .thenReturn(Optional.of(anotherVisit)); // Simulate an existing visit
+                .thenReturn(Optional.of(anotherVisit));
 
         VisitModel thirdVisit = new VisitModel();
         thirdVisit.setAppointmentSlotId(appointmentSlotModel);
         thirdVisit.setCustomerEmail("third@example.com");
 
-        when(visitPersistencePort.countByAppointmentSlotId(1L)).thenReturn(2); // Now the count would be 2
+        when(visitPersistencePort.countByAppointmentSlotId(1L)).thenReturn(2);
 
         assertThrows(MaximumBuyersReachedException.class, () -> visitUseCase.save(thirdVisit));
         verify(authenticatedUserPort, times(1)).getCurrentUsername();

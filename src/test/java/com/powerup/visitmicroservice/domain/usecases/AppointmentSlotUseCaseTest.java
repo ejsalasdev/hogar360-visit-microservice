@@ -4,6 +4,7 @@ import com.powerup.visitmicroservice.domain.exceptions.TimeSlotConflictException
 import com.powerup.visitmicroservice.domain.model.AppointmentSlotModel;
 import com.powerup.visitmicroservice.domain.ports.out.AppointmentSlotPersistencePort;
 import com.powerup.visitmicroservice.domain.ports.out.AuthenticatedUserPort;
+import com.powerup.visitmicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.visitmicroservice.domain.utils.validation.TimeSlotValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -104,5 +105,28 @@ class AppointmentSlotUseCaseTest {
         verify(appointmentSlotPersistencePort, times(1)).getAllByHouseId(houseId);
         verify(timeSlotValidator, times(1)).validate(appointmentSlotModel, conflictingSlots);
         verify(appointmentSlotPersistencePort, never()).save(any());
+    }
+
+    @Test
+    void When_getdAllAvailable_Expect_CallToPersistencePort() {
+        // Arrange (Given)
+        Integer page = 0;
+        Integer size = 10;
+        LocalDateTime filterStartTime = startTime.minusHours(1);
+        LocalDateTime filterEndTime = endTime.plusHours(1);
+        String city = "Bogotá";
+        PageInfo<AppointmentSlotModel> expectedPageInfo = new PageInfo<>(
+                Collections.emptyList(), 0L, 0, 0, size, false, false
+        );
+
+        when(appointmentSlotPersistencePort.getdAllAvailable(page, size, filterStartTime, filterEndTime, city))
+                .thenReturn(expectedPageInfo);
+
+        // Act (When)
+        PageInfo<AppointmentSlotModel> actualPageInfo = appointmentSlotUseCase.getdAllAvailable(page, size, filterStartTime, filterEndTime, city);
+
+        // Assert (Then)
+        assertEquals(expectedPageInfo, actualPageInfo);
+        verify(appointmentSlotPersistencePort, times(1)).getdAllAvailable(page, size, filterStartTime, filterEndTime, city);
     }
 }

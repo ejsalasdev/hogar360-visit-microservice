@@ -6,8 +6,10 @@ import com.powerup.visitmicroservice.domain.ports.in.AppointmentSlotServicePort;
 import com.powerup.visitmicroservice.domain.ports.out.AppointmentSlotPersistencePort;
 import com.powerup.visitmicroservice.domain.ports.out.AuthenticatedUserPort;
 import com.powerup.visitmicroservice.domain.utils.constants.AppointmentSlotExceptionMessagesConstants;
+import com.powerup.visitmicroservice.domain.utils.pagination.PageInfo;
 import com.powerup.visitmicroservice.domain.utils.validation.TimeSlotValidator;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,5 +44,16 @@ public class AppointmentSlotUseCase implements AppointmentSlotServicePort {
         timeSlotValidator.validate(appointmentSlotModel, existingSlots);
         
         appointmentSlotPersistencePort.save(appointmentSlotModel);
+    }
+
+    @Override
+    public PageInfo<AppointmentSlotModel> getdAllAvailable(Integer page, Integer size, LocalDateTime startTime, LocalDateTime endTime, String city) {
+        return appointmentSlotPersistencePort.getdAllAvailable(
+                page,
+                size,
+                startTime,
+                endTime,
+                city
+        );
     }
 }
