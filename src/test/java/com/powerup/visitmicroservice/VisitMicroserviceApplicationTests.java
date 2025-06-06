@@ -8,7 +8,14 @@ import org.springframework.test.context.TestPropertySource;
 @TestPropertySource(properties = {
         "jwt.secret=secret_key",
         "jwt.user=test_generator",
-        "jwt.expiration=3600000"
+        "jwt.expiration=3600000",
+        "spring.datasource.url=jdbc:h2:mem:testdb",
+        "spring.datasource.driver-class-name=org.h2.Driver",
+        "spring.datasource.username=sa",
+        "spring.datasource.password=",
+        "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect",
+        "spring.jpa.hibernate.ddl-auto=create-drop",
+        "spring.sql.init.mode=never"
 })
 class VisitMicroserviceApplicationTests {
 
