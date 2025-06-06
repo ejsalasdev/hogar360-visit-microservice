@@ -1,28 +1,49 @@
 server:
-  port: 8083
-
+  port: ${SERVER_PORT:8083}
+  
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/hogar360_visit_db
-    username: root
-    password: toor
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:hogar360_visit_db}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:toor}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
+    defer-datasource-initialization: true
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:data.sql
 jwt:
   secret: ${JWT_SECRET}
-  user: AUTH0JWT_BACKEND
-  expiration: 86400000
-  
-property-microservice:
-  url: http://localhost:8081
+  user: ${JWT_USER:AUTH0JWT_BACKEND}
+  expiration: ${JWT_EXPIRATION:86400000}
 
-#logging:
-#  level:
-#    root: debug
+# OpenFeign Configuration
+property-microservice:
+  url: ${PROPERTY_MICROSERVICE_URL:http://localhost:8081}
+
+logging:
+  level:
+    root: INFO
+    
+    org.springframework: WARN
+    org.springframework.boot: INFO
+    
+    com.powerup.visitmicroservice: DEBUG
+    
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN
+    org.springframework.orm.jpa: INFO
+    
+    feign: INFO
+    feign.Logger: DEBUG
+    
+    com.zaxxer.hikari: INFO
+    
+    org.springframework.web: INFO
