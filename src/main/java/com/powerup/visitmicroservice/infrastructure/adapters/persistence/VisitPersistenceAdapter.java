@@ -6,11 +6,9 @@ import com.powerup.visitmicroservice.infrastructure.entities.VisitEntity;
 import com.powerup.visitmicroservice.infrastructure.mappers.VisitEntityMapper;
 import com.powerup.visitmicroservice.infrastructure.repositories.mysql.VisitRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-@Repository
 @RequiredArgsConstructor
 public class VisitPersistenceAdapter implements VisitPersistencePort {
     
